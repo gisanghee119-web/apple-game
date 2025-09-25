@@ -1,0 +1,75 @@
+:root{
+  --green:#66d16c;
+  --green-dark:#3ab64b;
+  --cream:#f6fff4;
+  --accent:#ff7b66;
+  --border:#2f8041;
+  --shadow:0 6px 18px rgba(0,0,0,.15);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family: "Pretendard", system-ui, -apple-system, Segoe UI, Roboto, "Noto Sans KR", sans-serif;
+  background: radial-gradient(circle at 20% -10%, #ffffff, #eaffea);
+  color:#1b3b26;
+}
+.app{max-width:1000px;margin:24px auto;padding:8px}
+.header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
+.header h1{margin:0;font-weight:900;color:#2f8041;letter-spacing:.5px}
+.hud{display:flex;gap:12px;align-items:center}
+.btn{background:var(--accent);color:#fff;border:none;padding:10px 14px;border-radius:12px;box-shadow:var(--shadow);cursor:pointer;font-weight:700}
+.btn-small{padding:8px 10px;font-size:12px}
+.btn-secondary{background:#2f8041}
+.score{background:#fff;border:2px solid var(--green-dark);padding:8px 14px;border-radius:12px;min-width:120px;text-align:left}
+.hud{gap:10px}
+.toggles{display:flex;gap:8px}
+.controls{display:flex;gap:8px}
+
+.board-wrap{background:linear-gradient(180deg,#eaffea,#e3ffe6);border:3px solid var(--green-dark);padding:14px;border-radius:16px;box-shadow:var(--shadow)}
+.status-bar{font-size:16px;opacity:.95;margin:6px 8px 14px;display:flex;gap:22px;font-weight:800}
+.status-bar #time{font-size:22px;color:#d83420}
+.score{font-size:18px}
+.board{position:relative;height:640px;overflow:auto;border:4px solid var(--green-dark);border-radius:14px;background: repeating-linear-gradient(45deg, #bdf3b8 0 28px, #a4ee9e 28px 56px); padding:20px;display:flex;align-items:center;justify-content:center}
+.rules{font-size:14px;margin-top:12px;opacity:.9}
+
+.grid{position:relative;display:grid;grid-template-columns:repeat(10, 48px);grid-auto-rows:48px;gap:10px;place-items:center;margin:auto}
+/* removed stray pseudo element that shifted first row */
+.apple{
+  position:relative;width:42px;height:42px;border-radius:50%;
+.apple{width:48px;height:48px}
+  background: radial-gradient(circle at 30% 30%, #ff8f7e, #ff3a26 60%, #ce2211);
+  box-shadow: inset 0 4px 6px rgba(255,255,255,.6), inset 0 -6px 12px rgba(0,0,0,.2), var(--shadow);
+  border:3px solid #bb1f0e;
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;text-shadow:0 1px 2px rgba(0,0,0,.5);
+  user-select:none
+}
+.apple::before{content:"";position:absolute;top:-8px;left:14px;width:14px;height:10px;border-radius:0 0 14px 14px;background:#2f8041;transform:rotate(-12deg)}
+.apple::after{content:"";position:absolute;top:-6px;left:22px;width:12px;height:12px;border-radius:50%;background:#4cc95b;box-shadow: inset -2px -3px 0 0 #2f8041;}
+
+.apple.hidden{visibility:hidden}
+.apple.selected{outline:4px solid #ffd84d;outline-offset:2px}
+.apple.hint{outline:4px dashed #4fc3f7;outline-offset:2px}
+
+.drag-box{position:absolute;border:3px dashed #222;background:rgba(0,0,0,.06);pointer-events:none}
+.drag-box.hidden{display:none}
+
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center}
+.modal.hidden{display:none}
+.modal-content{background:#fff;border-radius:16px;padding:24px 28px;box-shadow:var(--shadow);text-align:center;border:4px solid var(--green-dark)}
+.modal-content.intro{max-width:540px}
+.intro-actions{display:flex;gap:10px;justify-content:center;margin-top:10px}
+
+/* Digit displays */
+.digits{display:flex;gap:4px;align-items:flex-end}
+.digits.time .digit svg{width:32px;height:52px}
+.digits.score .digit svg{width:24px;height:40px}
+.digit svg{display:block}
+
+.combo-pop{
+  position:absolute;pointer-events:none;color:#ff3a26;font-weight:900;
+  text-shadow:0 2px 0 #b71c1c, 0 6px 12px rgba(0,0,0,.25);
+  transform:translate(-50%, -50%);font-size:22px;animation:comboUp .9s ease-out forwards}
+@keyframes comboUp{0%{opacity:0;transform:translate(-50%,-50%) scale(.7)}20%{opacity:1;transform:translate(-50%,-60%) scale(1.05)}100%{opacity:0;transform:translate(-50%,-110%) scale(1.1)}}
+
+.fx-canvas{position:absolute;inset:0;pointer-events:none}
+

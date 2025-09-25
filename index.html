@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🍎 사과 숫자 퍼즐</title>
+  <link rel="preload" as="audio" href="assets/bgm.mp3">
+  <link rel="preload" as="audio" href="assets/success.wav">
+  <link rel="preload" as="audio" href="assets/warning.wav">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app">
+    <header class="header">
+      <h1>🍎 사과 숫자 퍼즐</h1>
+      <div class="hud">
+        <div class="score">점수:
+          <div id="scoreDigits" class="digits score"></div>
+        </div>
+        <div class="score">최고점수:
+          <div id="bestScoreDigits" class="digits score"></div>
+        </div>
+        <div class="toggles">
+          <button id="toggleBgm" class="btn btn-small" aria-pressed="true">BGM 켜짐</button>
+          <button id="toggleSfx" class="btn btn-small" aria-pressed="true">효과음 켜짐</button>
+        </div>
+        <div class="controls">
+          <button id="pauseBtn" class="btn btn-secondary">일시정지</button>
+          <button id="resetBtn" class="btn btn-secondary">리셋</button>
+          <button id="hintBtn" class="btn btn-secondary">힌트</button>
+          <button id="introBtn" class="btn">인트로</button>
+        </div>
+      </div>
+    </header>
+
+    <section class="board-wrap">
+      <div class="status-bar">
+        <span id="statusText">상태: 준비</span>
+        <span style="display:flex;align-items:center;gap:6px">시간:
+          <div id="timeDigits" class="digits time"></div>
+        </span>
+      </div>
+      <div id="board" class="board" tabindex="0">
+        <!-- Apples injected here -->
+        <div id="dragBox" class="drag-box hidden"></div>
+        <canvas id="fxCanvas" class="fx-canvas"></canvas>
+      </div>
+      <div class="rules">
+        <p>🎮 목표: 사과 숫자의 합이 10이 되도록 선택</p>
+        <p>🖱️ 조작법: 마우스로 드래그하여 사과 선택</p>
+        <p>⭐ 점수: 선택 사과 개수 = 점수</p>
+        <div style="display:flex;gap:14px;align-items:center;margin-top:8px;flex-wrap:wrap">
+          <label style="display:flex;align-items:center;gap:6px">제한 시간(초):
+            <input id="timeInput" type="number" min="10" max="600" step="10" value="120" style="width:90px;padding:6px 8px;border-radius:8px;border:2px solid var(--green-dark)">
+            <button id="applyTimeBtn" class="btn btn-small btn-secondary">적용</button>
+          </label>
+          <label style="display:flex;align-items:center;gap:6px">BGM 볼륨:
+            <input id="bgmVol" type="range" min="0" max="1" step="0.01" value="0.5">
+          </label>
+        </div>
+      </div>
+    </section>
+
+    <div id="gameOver" class="modal hidden">
+      <div class="modal-content">
+        <h2>⏰ 끝!</h2>
+        <p>최종 점수: <strong id="finalScore">0</strong></p>
+        <button id="restartBtn" class="btn">다시 하기</button>
+      </div>
+    </div>
+  </div>
+
+  <audio id="bgm" src="assets/bgm.mp3" loop></audio>
+  <audio id="sfxSuccess" src="assets/success.wav"></audio>
+  <audio id="sfxWarn" src="assets/warning.wav"></audio>
+  <audio id="sfxGameOver" src="assets/gameover.wav"></audio>
+  <!-- Additional bgms (optional). If files are missing, synth fallback runs. -->
+  <audio id="bgm2" src="assets/bgm2.mp3" loop></audio>
+  <audio id="bgm3" src="assets/bgm3.mp3" loop></audio>
+
+  <div id="introModal" class="modal">
+    <div class="modal-content intro">
+      <h2>🍎 사과 숫자 퍼즐</h2>
+      <p>목표: 선택한 사과 숫자의 합이 10이 되도록 드래그로 선택하세요.</p>
+      <ul>
+        <li>드래그 박스 안의 사과가 선택됩니다.</li>
+        <li>합이 10이면 제거되고 점수를 획득합니다.</li>
+        <li>빈 칸은 채워지지 않습니다.</li>
+      </ul>
+      <div class="intro-actions">
+        <button id="practiceBtn" class="btn btn-secondary">연습하기</button>
+        <button id="startBtn" class="btn">본 게임 시작</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="main.js"></script>
+</body>
+</html>
+
+
